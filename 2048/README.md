@@ -22,7 +22,7 @@ or on the game start) have.
 
 ## `2048_game.py`
 
-The `2048_game.py` is just a very simple 'rendering' of the 2048 board, with keyboard arrows moving.
+The `2048_game.py` is just a very simple 'rendering' of the 2048 board, with keyboard arrows used for moving.
 
 ### Dependencies
 
