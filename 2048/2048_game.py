@@ -83,16 +83,13 @@ while True:
                     moved = board.move("down")
 
                 if moved:
-                    try:
-                        board.insert_random_tile()
-                        print(board.matrix, "\n")
+                    board.insert_random_tile()
+                    print(board.matrix, "\n")
 
-                        if board.check_gameover():
-                            print("GAME OVER!")
-                            pygame.quit()
-                            sys.exit()
-                    except board.NoSpaceLeft:
-                        pass
+                    if board.check_gameover():
+                        print("GAME OVER!")
+                        pygame.quit()
+                        sys.exit()
                 else:
                     print("\nCannot move to this direction!")
 
