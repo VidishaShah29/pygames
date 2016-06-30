@@ -5,6 +5,7 @@ class Board(object):
     """
     Represents the board of 2048 game. Internally it is a Numpy 2D array (matrix).
     """
+
     POSSIBLE_MOVES = ["up", "down", "left", "right"]
 
     def __init__(self, width, height, max_random_value=4):
@@ -161,13 +162,20 @@ class Board(object):
             return True
 
     def insert_random_tile(self):
+        """
+        Inserts the random tile.
+
+        :return: True if random tile was added, False otherwise (= the board is full).
+        """
+
         zero_indexes = np.where(self.matrix == 0)
 
         if len(zero_indexes[0]):
             zero_indexes = list(zip(zero_indexes[0], zero_indexes[1]))
             self.matrix[random_choice(zero_indexes)] = np.random.choice(self.__random_tile_values)
+            return True
         else:
-            raise self.NoSpaceLeft("Cannot insert new tile: there is no space left on the board.")
+            return False
 
     def move_insert(self, direction):
         if self.move(direction):
