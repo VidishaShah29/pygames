@@ -23,3 +23,21 @@ or on the game start) have.
 ## `2048_game.py`
 
 The `2048_game.py` is just a very simple 'rendering' of the 2048 board, with keyboard arrows moving.
+
+### Dependencies
+
+`Python 3.5.1`
+
+I have used these versions of libraries, but other versions should work too:
+
+`mkl 11.3.3`
+
+`numpy 1.11.1`
+
+`pygame 1.9.2a0`
+
+I am using the **conda** package manager and it's great: http://conda.pydata.org/docs/
+
+You can download `pygame` for Python 3.5 here: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame
+
+Then just install it with `pip install <pygame file>`
