@@ -23,6 +23,7 @@ class Board(object):
 
         self.__random_tile_values = self.__tile_values[self.__tile_values <= max_random_value]
         self.__matrix = self.__get_init_matrix(width, height)
+        self.__last_random_tile_index = None
 
     @property
     def matrix(self):
@@ -39,6 +40,14 @@ class Board(object):
         """
 
         return self.matrix.shape
+
+    @property
+    def last_random_tile_index(self):
+        """
+        :return: last inserted random tile index tuple: (row, column)
+        """
+
+        return self.__last_random_tile_index
 
     def __get_init_matrix(self, width, height):
         """
@@ -168,8 +177,9 @@ class Board(object):
         zero_indexes = np.where(self.matrix == 0)
 
         if len(zero_indexes[0]):
-            zero_indexes = list(zip(zero_indexes[0], zero_indexes[1]))
-            self.matrix[random_choice(zero_indexes)] = np.random.choice(self.__random_tile_values)
+            random_zero_index = random_choice(list(zip(zero_indexes[0], zero_indexes[1])))
+            self.matrix[random_zero_index] = np.random.choice(self.__random_tile_values)
+            self.__last_random_tile_index = random_zero_index
             return True
         else:
             return False
