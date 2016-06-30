@@ -11,15 +11,16 @@ pygame.display.set_caption("2048")
 board = Board(4, 4, max_random_value=4)
 print(board.matrix)
 
-FONT = pygame.font.SysFont("Arial", 12)
+FONT = pygame.font.SysFont("Arial", 24, bold=True)
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+YELLOW = (255,255,0)
 
-WIDTH = 20
-HEIGHT = 20
+WIDTH = 50
+HEIGHT = 50
 
 MARGIN = 5
 
@@ -86,36 +87,39 @@ while True:
                     board.insert_random_tile()
                     print(board.matrix, "\n")
 
+                    screen.fill(BLACK)
+
+                    for row in range(board.shape[0]):
+                        for column in range(board.shape[1]):
+                            color = WHITE
+                            if board.matrix[row, column] == 0:
+                                color = RED
+                            elif (row, column) == board.last_random_tile_index:
+                                color = YELLOW
+
+                            pygame.draw.rect(screen,
+                                             color,
+                                             [(MARGIN + WIDTH) * column + MARGIN,
+                                              (MARGIN + HEIGHT) * row + MARGIN,
+                                              WIDTH,
+                                              HEIGHT])
+
+                            drawText(screen,
+                                     str(board.matrix[row, column]),
+                                     BLACK,
+                                     [(MARGIN + WIDTH) * column + WIDTH/2,
+                                      (MARGIN + HEIGHT) * row + HEIGHT/2,
+                                      WIDTH,
+                                      HEIGHT],
+                                     FONT,
+                                     aa=True)
+
                     if board.check_gameover():
                         print("GAME OVER!")
                         pygame.quit()
                         sys.exit()
                 else:
                     print("\nCannot move to this direction!")
-
-    screen.fill(BLACK)
-
-    for row in range(board.shape[0]):
-        for column in range(board.shape[1]):
-            color = WHITE
-            if board.matrix[row, column] == 0:
-                color = RED
-
-            pygame.draw.rect(screen,
-                             color,
-                             [(MARGIN + WIDTH) * column + MARGIN,
-                              (MARGIN + HEIGHT) * row + MARGIN,
-                              WIDTH,
-                              HEIGHT])
-
-            drawText(screen,
-                     str(board.matrix[row, column]),
-                     BLACK,
-                     [(MARGIN + WIDTH) * column + MARGIN,
-                      (MARGIN + HEIGHT) * row + MARGIN,
-                      WIDTH,
-                      HEIGHT],
-                     FONT)
 
     clock.tick(60)
     pygame.display.flip()
