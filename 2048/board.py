@@ -40,9 +40,6 @@ class Board(object):
 
         return self.matrix.shape
 
-    class NoSpaceLeft(Exception):
-        pass
-
     def __get_init_matrix(self, width, height):
         """
         Creates the gaming matrix with defined shape and two random initial tiles with given maximal value.
@@ -178,11 +175,22 @@ class Board(object):
             return False
 
     def move_insert(self, direction):
+        """
+        Combines the move() and insert_random_tile() functions.
+
+        :param direction: direction to move on: 'up', 'down', 'left', 'right'
+        :return: (True, True) if moved and inserted, (True, False) if moved and not inserted and (False, False) when not moved.
+        """
+
         if self.move(direction):
-            self.insert_random_tile()
-            return True
+            inserted = self.insert_random_tile()
+
+            if inserted:
+                return (True, True)
+            else:
+                return (True, False)
         else:
-            return False
+            return (False, False)
 
     def is_full(self):
         """
