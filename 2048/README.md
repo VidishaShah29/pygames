@@ -26,7 +26,7 @@ The `2048_game.py` is just a very simple 'rendering' of the 2048 board, with key
 
 ### Dependencies
 
-`Python 3.5.1`
+`Python 3.5.1`, but generally Python 3 is probably OK.
 
 I have used these versions of libraries, but other versions should work too:
 
