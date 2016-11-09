@@ -24,6 +24,7 @@ class Board(object):
         self.__random_tile_values = self.__tile_values[self.__tile_values <= max_random_value]
         self.__matrix = self.__get_init_matrix(width, height)
         self.__last_random_tile_index = None
+        self.__score = self.matrix.sum()
 
     @property
     def matrix(self):
@@ -48,6 +49,10 @@ class Board(object):
         """
 
         return self.__last_random_tile_index
+
+    @property
+    def score(self):
+        return self.__score
 
     def __get_init_matrix(self, width, height):
         """
@@ -162,6 +167,8 @@ class Board(object):
         else:
             raise ValueError("Unknown direction to move. Possible directions are 'up', 'down', 'left', 'right'")
 
+        self.__score = self.matrix.sum()
+
         if np.array_equal(original_matrix, self.matrix):
             return False
         else:
@@ -180,6 +187,7 @@ class Board(object):
             random_zero_index = random_choice(list(zip(zero_indexes[0], zero_indexes[1])))
             self.matrix[random_zero_index] = np.random.choice(self.__random_tile_values)
             self.__last_random_tile_index = random_zero_index
+            self.__score = self.matrix.sum()
             return True
         else:
             return False
